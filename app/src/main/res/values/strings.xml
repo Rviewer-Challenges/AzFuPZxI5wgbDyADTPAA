@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">MarioMemory</string>
+    <string name="welcome">Welcome to</string>
+    <string name="play">Play</string>
+    <string name="easy_difficult">Easy (4x4)</string>
+    <string name="medium_difficult">Medium (4x6)</string>
+    <string name="hard_difficult">Hard (5x6)</string>
 </resources>
