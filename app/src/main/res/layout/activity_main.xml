@@ -46,6 +46,7 @@
             android:layout_centerInParent="true"
             android:backgroundTint="@color/green"
             android:text="@string/play"
+            android:textColor="@color/white"
             app:cornerRadius="@dimen/corner_radius"/>
 
         <LinearLayout
@@ -63,6 +64,7 @@
                 android:layout_gravity="center_horizontal"
                 android:backgroundTint="@color/green"
                 android:text="@string/easy_difficult"
+                android:textColor="@color/white"
                 app:cornerRadius="@dimen/corner_radius"/>
 
             <com.google.android.material.button.MaterialButton
@@ -72,6 +74,7 @@
                 android:layout_gravity="center_horizontal"
                 android:backgroundTint="@color/yellow"
                 android:text="@string/medium_difficult"
+                android:textColor="@color/white"
                 app:cornerRadius="@dimen/corner_radius"/>
 
             <com.google.android.material.button.MaterialButton
@@ -81,6 +84,7 @@
                 android:layout_gravity="center_horizontal"
                 android:backgroundTint="@color/red"
                 android:text="@string/hard_difficult"
+                android:textColor="@color/white"
                 app:cornerRadius="@dimen/corner_radius"/>
 
         </LinearLayout>
