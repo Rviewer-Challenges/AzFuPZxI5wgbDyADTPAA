@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MarioMemory">
         <activity
+            android:name=".MemoryBoardActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

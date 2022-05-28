@@ -1,5 +1,6 @@
 package dev.alejo.mariomemory
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -21,5 +22,12 @@ class MainActivity : AppCompatActivity() {
             binding.playButton.visibility = View.GONE
             binding.difficultContent.visibility = View.VISIBLE
         }
+        binding.easyButton.setOnClickListener { startGame() }
+        binding.mediumButton.setOnClickListener { startGame() }
+        binding.hardButton.setOnClickListener { startGame() }
+    }
+
+    private fun startGame() {
+        startActivity(Intent(this, MemoryBoardActivity::class.java))
     }
 }
