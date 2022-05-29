@@ -39,7 +39,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/medium_dimen"
             android:layout_gravity="center_horizontal"
-            android:backgroundTint="@color/green"/>
+            android:backgroundTint="@color/green"
+            android:textColor="@color/white"/>
 
     </LinearLayout>
 

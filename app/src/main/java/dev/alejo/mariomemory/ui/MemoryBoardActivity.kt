@@ -33,7 +33,6 @@ import dev.alejo.mariomemory.preferences.Prefs
 import ir.samanjafari.easycountdowntimer.CountDownInterface
 import java.util.*
 
-
 @SuppressLint("SetTextI18n", "NotifyDataSetChanged")
 class MemoryBoardActivity : AppCompatActivity(),  OnBlockItemListener{
 
@@ -135,8 +134,8 @@ class MemoryBoardActivity : AppCompatActivity(),  OnBlockItemListener{
         movements++
         if(blockSelected!!.backImage == itemSelected.backImage) {
             remainingPairs--
-            blocks[blocks.indexOf(blockSelected)].backImage = R.drawable.default_background
             blocks[blocks.indexOf(itemSelected)].backImage = R.drawable.default_background
+            blocks[blocks.indexOf(blockSelected)].backImage = R.drawable.default_background
         }
         updateValues()
     }

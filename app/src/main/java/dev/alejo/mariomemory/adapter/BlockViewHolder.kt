@@ -25,6 +25,10 @@ class BlockViewHolder(view: View): RecyclerView.ViewHolder(view) {
             frontBlockImage.visibility = View.GONE
             backBlockImage.visibility = View.VISIBLE
             backBlockImage.isEnabled = false
+        } else {
+            isBlockSide = true
+            frontBlockImage.visibility = View.VISIBLE
+            backBlockImage.visibility = View.GONE
         }
         setUpAnimation(context, listener, item, position)
     }
@@ -55,6 +59,7 @@ class BlockViewHolder(view: View): RecyclerView.ViewHolder(view) {
                         frontBlockImage.visibility = View.GONE
                         backBlockImage.visibility = View.VISIBLE
                     } else {
+                        isBlockSide = true
                         backBlockImage.isEnabled = true
                         backBlockImage.visibility = View.GONE
                         frontBlockImage.visibility = View.VISIBLE
