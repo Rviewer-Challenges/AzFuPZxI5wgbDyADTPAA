@@ -1,5 +1,8 @@
 package dev.alejo.mariomemory.ui
 
+import android.animation.Animator
+import android.animation.AnimatorInflater
+import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
@@ -31,8 +34,8 @@ class MemoryBoardActivity : AppCompatActivity(),  OnBlockItemListener{
     private var columns = EASY_COLUMNS
     private var totalBlocks = EASY_TOTAL_BLOCKS
     private var blocks = ArrayList<BlockItem>()
-    private var resIdsUsed = ArrayList<Int>()
-    private val adapter by lazy { BlockAdapter(blocks, this) }
+    private var rndIdsUsed = ArrayList<Int>()
+    private val adapter by lazy { BlockAdapter(this, blocks, this) }
     private val difficult by lazy { Prefs(this).getDifficult() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,10 +63,10 @@ class MemoryBoardActivity : AppCompatActivity(),  OnBlockItemListener{
         }
         val characters = resources.obtainTypedArray(R.array.characters)
         while ( blocks.size < totalBlocks) {
-            val rndInt = Random().nextInt(characters.length())
-            val resID = characters.getResourceId(rndInt, 0)
-            resIdsUsed.add(resID)
-            if(!resIdsUsed.contains(resID)) {
+            val rndIndex = Random().nextInt(characters.length())
+            val resID = characters.getResourceId(rndIndex, 0)
+            if(rndIndex !in rndIdsUsed) {
+                rndIdsUsed.add(rndIndex)
                 blocks.add(BlockItem(blocks.size, resID))
                 blocks.add(BlockItem(blocks.size + 1, resID))
             }
@@ -83,8 +86,8 @@ class MemoryBoardActivity : AppCompatActivity(),  OnBlockItemListener{
         binding.blocksRecycler.adapter = adapter
     }
 
-    override fun onBlockItemClick(item: BlockItem) {
-        Log.e("Id->", item.imageId.toString())
+    override fun onBlockItemClick(item: BlockItem, position: Int) {
+
     }
 
 }
