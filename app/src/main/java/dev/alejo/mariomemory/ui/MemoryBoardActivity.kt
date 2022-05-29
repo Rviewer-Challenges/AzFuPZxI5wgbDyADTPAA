@@ -125,8 +125,10 @@ class MemoryBoardActivity : AppCompatActivity(),  OnBlockItemListener{
         binding.remainingPairs.text = remainingPairs.toString()
         blockSelected = null
         adapter.notifyDataSetChanged()
-        if(remainingPairs == 0)
+        if(remainingPairs == 0) {
+            binding.countDown.pause()
             showEndGameAlert(gameLost = false)
+        }
     }
 
     private fun validateBlocksSelected(itemSelected: BlockItem) {
@@ -146,9 +148,7 @@ class MemoryBoardActivity : AppCompatActivity(),  OnBlockItemListener{
     }
 
     private fun showEndGameAlert(gameLost: Boolean) {
-        // Create an alert builder
         val builder = AlertDialog.Builder(this)
-        // set the custom layout
         val endGameDialogView = layoutInflater.inflate(R.layout.alert_end_game, null)
         builder.setView(endGameDialogView)
         val alertDialog = builder.create()
