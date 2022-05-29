@@ -1,4 +1,4 @@
-package dev.alejo.mariomemory
+package dev.alejo.mariomemory.ui
 
 import android.animation.Animator
 import android.animation.ObjectAnimator
