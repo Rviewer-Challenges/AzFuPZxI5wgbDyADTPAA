@@ -4,5 +4,5 @@ import androidx.annotation.DrawableRes
 
 data class BlockItem(
     val imageId: Int,
-    @DrawableRes val backImage: Int
+    @DrawableRes var backImage: Int
 )

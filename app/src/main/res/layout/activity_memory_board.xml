@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -13,9 +12,55 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2"
+        android:gravity="center"
         android:orientation="vertical">
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:textSize="20sp"
+                android:textColor="@color/yellow"
+                android:text="@string/movements"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/movements"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/medium_dimen"
+                android:layout_gravity="center_horizontal"
+                android:textSize="20sp"
+                android:textColor="@color/white"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/medium_dimen">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:textSize="20sp"
+                android:textColor="@color/yellow"
+                android:text="@string/remaining_pairs"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/remaining_pairs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/medium_dimen"
+                android:layout_gravity="center_horizontal"
+                android:textSize="20sp"
+                android:textColor="@color/white"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -35,15 +80,13 @@
                 android:id="@+id/first_selection"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_marginEnd="@dimen/medium_dimen"
-                app:srcCompat="@drawable/mario_thinking"/>
+                android:layout_marginEnd="@dimen/medium_dimen"/>
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/second_selection"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_marginStart="@dimen/medium_dimen"
-                app:srcCompat="@drawable/mario_thinking"/>
+                android:layout_marginStart="@dimen/medium_dimen"/>
 
         </LinearLayout>
 

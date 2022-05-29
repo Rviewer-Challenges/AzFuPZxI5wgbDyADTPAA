@@ -1,14 +1,13 @@
 package dev.alejo.mariomemory.ui
 
-import android.animation.Animator
-import android.animation.AnimatorInflater
-import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
+import android.os.Handler
+import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.squareup.picasso.Picasso
 import dev.alejo.mariomemory.App.Companion.EASY_COLUMNS
 import dev.alejo.mariomemory.App.Companion.EASY_DIFFICULT
 import dev.alejo.mariomemory.App.Companion.EASY_TOTAL_BLOCKS
@@ -28,13 +27,17 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
+@SuppressLint("SetTextI18n", "NotifyDataSetChanged")
 class MemoryBoardActivity : AppCompatActivity(),  OnBlockItemListener{
 
     private lateinit var binding: ActivityMemoryBoardBinding
     private var columns = EASY_COLUMNS
     private var totalBlocks = EASY_TOTAL_BLOCKS
+    private var remainingPairs = EASY_TOTAL_BLOCKS/2
+    private var movements = 0
     private var blocks = ArrayList<BlockItem>()
     private var rndIdsUsed = ArrayList<Int>()
+    private var blockSelected: BlockItem? = null
     private val adapter by lazy { BlockAdapter(this, blocks, this) }
     private val difficult by lazy { Prefs(this).getDifficult() }
 
@@ -45,7 +48,7 @@ class MemoryBoardActivity : AppCompatActivity(),  OnBlockItemListener{
         setBlocksData()
     }
 
-    @SuppressLint("NotifyDataSetChanged", "Recycle")
+    @SuppressLint("Recycle")
     private fun setBlocksData() {
         when(difficult) {
             EASY_DIFFICULT -> {
@@ -61,6 +64,7 @@ class MemoryBoardActivity : AppCompatActivity(),  OnBlockItemListener{
                 totalBlocks = HARD_TOTAL_BLOCKS
             }
         }
+        remainingPairs = totalBlocks/2
         val characters = resources.obtainTypedArray(R.array.characters)
         while ( blocks.size < totalBlocks) {
             val rndIndex = Random().nextInt(characters.length())
@@ -68,7 +72,7 @@ class MemoryBoardActivity : AppCompatActivity(),  OnBlockItemListener{
             if(rndIndex !in rndIdsUsed) {
                 rndIdsUsed.add(rndIndex)
                 blocks.add(BlockItem(blocks.size, resID))
-                blocks.add(BlockItem(blocks.size + 1, resID))
+                blocks.add(BlockItem(blocks.size, resID))
             }
         }
         blocks = ArrayList(blocks.shuffled())
@@ -84,10 +88,48 @@ class MemoryBoardActivity : AppCompatActivity(),  OnBlockItemListener{
             false
         )
         binding.blocksRecycler.adapter = adapter
+        updateValues()
+    }
+
+    private fun updateValues() {
+        Picasso.get()
+            .load(R.drawable.default_background)
+            .into(binding.firstSelection)
+        Picasso.get()
+            .load(R.drawable.default_background)
+            .into(binding.secondSelection)
+        binding.movements.text = movements.toString()
+        binding.remainingPairs.text = remainingPairs.toString()
+        blockSelected = null
+        adapter.notifyDataSetChanged()
+    }
+
+    private fun validateBlocksSelected(itemSelected: BlockItem) {
+        movements++
+        if(blockSelected!!.backImage == itemSelected.backImage) {
+            remainingPairs--
+            blocks[blocks.indexOf(blockSelected)].backImage = R.drawable.default_background
+            blocks[blocks.indexOf(itemSelected)].backImage = R.drawable.default_background
+        }
+        updateValues()
+    }
+
+    private fun showBlockSelected(resourceId: Int, isFirstBlock: Boolean) {
+        Picasso.get()
+            .load(resourceId)
+            .into(if(isFirstBlock) binding.firstSelection else binding.secondSelection)
     }
 
     override fun onBlockItemClick(item: BlockItem, position: Int) {
-
+        Handler(Looper.getMainLooper()).postDelayed({
+            if(blockSelected == null) {
+                blockSelected = item
+                showBlockSelected(item.backImage, isFirstBlock = true)
+            } else if(blockSelected != item) {
+                showBlockSelected(item.backImage, isFirstBlock = false)
+                Handler(Looper.getMainLooper()).postDelayed({validateBlocksSelected(item)}, 200)
+            }
+        }, 800)
     }
 
 }

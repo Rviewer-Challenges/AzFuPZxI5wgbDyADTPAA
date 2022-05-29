@@ -3,9 +3,7 @@ package dev.alejo.mariomemory.adapter
 import android.animation.Animator
 import android.animation.AnimatorInflater
 import android.content.Context
-import android.util.Log
 import android.view.View
-import androidx.core.animation.addListener
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.imageview.ShapeableImageView
@@ -23,6 +21,11 @@ class BlockViewHolder(view: View): RecyclerView.ViewHolder(view) {
         Picasso.get()
             .load(item.backImage)
             .into(backBlockImage)
+        if(item.backImage == R.drawable.default_background) {
+            frontBlockImage.visibility = View.GONE
+            backBlockImage.visibility = View.VISIBLE
+            backBlockImage.isEnabled = false
+        }
         setUpAnimation(context, listener, item, position)
     }
 
@@ -47,6 +50,7 @@ class BlockViewHolder(view: View): RecyclerView.ViewHolder(view) {
 
                 override fun onAnimationEnd(p0: Animator?) {
                     if (isBlockSide) {
+                        isBlockSide = false
                         frontBlockImage.isEnabled = true
                         frontBlockImage.visibility = View.GONE
                         backBlockImage.visibility = View.VISIBLE

@@ -5,4 +5,6 @@
     <string name="easy_difficult">Easy (4x4)</string>
     <string name="medium_difficult">Medium (4x6)</string>
     <string name="hard_difficult">Hard (5x6)</string>
+    <string name="movements">Movements:</string>
+    <string name="remaining_pairs">Remaining pairs:</string>
 </resources>
