@@ -1,13 +1,19 @@
 package dev.alejo.mariomemory.ui
 
 import android.annotation.SuppressLint
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.imageview.ShapeableImageView
+import com.google.android.material.textview.MaterialTextView
 import com.squareup.picasso.Picasso
 import dev.alejo.mariomemory.App.Companion.EASY_COLUMNS
 import dev.alejo.mariomemory.App.Companion.EASY_DIFFICULT
@@ -26,7 +32,6 @@ import dev.alejo.mariomemory.databinding.ActivityMemoryBoardBinding
 import dev.alejo.mariomemory.preferences.Prefs
 import ir.samanjafari.easycountdowntimer.CountDownInterface
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 @SuppressLint("SetTextI18n", "NotifyDataSetChanged")
@@ -105,6 +110,7 @@ class MemoryBoardActivity : AppCompatActivity(),  OnBlockItemListener{
         )
         binding.blocksRecycler.setHasFixedSize(true)
         binding.blocksRecycler.adapter = adapter
+        binding.backButton.setOnClickListener { onBackPressed() }
         updateValues()
     }
 
@@ -140,7 +146,35 @@ class MemoryBoardActivity : AppCompatActivity(),  OnBlockItemListener{
     }
 
     private fun showEndGameAlert(gameLost: Boolean) {
-
+        // Create an alert builder
+        val builder = AlertDialog.Builder(this)
+        // set the custom layout
+        val endGameDialogView = layoutInflater.inflate(R.layout.alert_end_game, null)
+        builder.setView(endGameDialogView)
+        val alertDialog = builder.create()
+        val endGameImage = endGameDialogView.findViewById<ShapeableImageView>(R.id.end_game_image)
+        val endGameMessage = endGameDialogView.findViewById<MaterialTextView>(R.id.end_game_message)
+        val endGameButton = endGameDialogView.findViewById<MaterialButton>(R.id.end_game_button)
+        if(gameLost) {
+            Picasso.get()
+                .load(R.drawable.loser)
+                .into(endGameImage)
+            endGameMessage.text = getString(R.string.looser_message)
+            endGameButton.text = getString(R.string.retry)
+        } else {
+            Picasso.get()
+                .load(R.drawable.winner)
+                .into(endGameImage)
+            endGameMessage.text = getString(R.string.winner_message)
+            endGameButton.text = getString(R.string.finish)
+        }
+        endGameButton.setOnClickListener {
+            alertDialog.dismiss()
+            finish()
+        }
+        alertDialog.setCancelable(false)
+        alertDialog.show()
+        alertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
     }
 
     override fun onBlockItemClick(item: BlockItem, position: Int) {
@@ -155,6 +189,18 @@ class MemoryBoardActivity : AppCompatActivity(),  OnBlockItemListener{
                 Handler(Looper.getMainLooper()).postDelayed({validateBlocksSelected(item)}, 200)
             }
         }, 800)
+    }
+
+    private fun restoreStorage() { Prefs(this).wipe() }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        restoreStorage()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        restoreStorage()
     }
 
 }
