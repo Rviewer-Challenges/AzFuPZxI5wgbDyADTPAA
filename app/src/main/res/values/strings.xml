@@ -7,4 +7,8 @@
     <string name="hard_difficult">Hard (5x6)</string>
     <string name="movements">Movements:</string>
     <string name="remaining_pairs">Remaining pairs:</string>
+    <string name="winner_message">You\'re the winner\n¡YOU ROCK!</string>
+    <string name="looser_message">You lost the game but you can\n¡TRY IT AGAIN!</string>
+    <string name="retry">RETRY</string>
+    <string name="finish">FINISH</string>
 </resources>
