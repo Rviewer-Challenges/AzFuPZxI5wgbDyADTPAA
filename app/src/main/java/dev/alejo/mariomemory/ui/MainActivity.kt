@@ -8,7 +8,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.core.animation.addListener
+import dev.alejo.mariomemory.App.Companion.EASY_DIFFICULT
+import dev.alejo.mariomemory.App.Companion.HARD_DIFFICULT
+import dev.alejo.mariomemory.App.Companion.MEDIUM_DIFFICULT
 import dev.alejo.mariomemory.databinding.ActivityMainBinding
+import dev.alejo.mariomemory.preferences.Prefs
 
 class MainActivity : AppCompatActivity() {
 
@@ -24,9 +28,18 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("Recycle")
     private fun initUI() {
         binding.playButton.setOnClickListener { hidePlayButton() }
-        binding.easyButton.setOnClickListener { startGame() }
-        binding.mediumButton.setOnClickListener { startGame() }
-        binding.hardButton.setOnClickListener { startGame() }
+        binding.easyButton.setOnClickListener {
+            Prefs(this).saveDifficult(EASY_DIFFICULT)
+            startGame()
+        }
+        binding.mediumButton.setOnClickListener {
+            Prefs(this).saveDifficult(MEDIUM_DIFFICULT)
+            startGame()
+        }
+        binding.hardButton.setOnClickListener {
+            Prefs(this).saveDifficult(HARD_DIFFICULT)
+            startGame()
+        }
     }
 
     private fun hidePlayButton() {
