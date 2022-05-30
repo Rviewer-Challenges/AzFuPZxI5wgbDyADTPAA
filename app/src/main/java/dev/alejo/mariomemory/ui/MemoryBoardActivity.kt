@@ -47,6 +47,7 @@ class MemoryBoardActivity : AppCompatActivity(),  OnBlockItemListener{
     private var blockSelected: BlockItem? = null
     private val adapter by lazy { BlockAdapter(this, blocks, this) }
     private val difficult by lazy { Prefs(this).getDifficult() }
+    private var isValidating = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -124,6 +125,7 @@ class MemoryBoardActivity : AppCompatActivity(),  OnBlockItemListener{
         binding.remainingPairs.text = remainingPairs.toString()
         blockSelected = null
         adapter.notifyDataSetChanged()
+        isValidating = false
         if(remainingPairs == 0) {
             binding.countDown.pause()
             showEndGameAlert(gameLost = false)
@@ -177,17 +179,20 @@ class MemoryBoardActivity : AppCompatActivity(),  OnBlockItemListener{
     }
 
     override fun onBlockItemClick(item: BlockItem, position: Int) {
-        if(!timerStarted)
-            binding.countDown.startTimer()
-        Handler(Looper.getMainLooper()).postDelayed({
-            if(blockSelected == null) {
-                blockSelected = item
-                showBlockSelected(item.backImage, isFirstBlock = true)
-            } else if(blockSelected != item) {
-                showBlockSelected(item.backImage, isFirstBlock = false)
-                Handler(Looper.getMainLooper()).postDelayed({validateBlocksSelected(item)}, 200)
-            }
-        }, 800)
+        if(!isValidating) {
+            if(!timerStarted)
+                binding.countDown.startTimer()
+            Handler(Looper.getMainLooper()).postDelayed({
+                if(blockSelected == null) {
+                    blockSelected = item
+                    showBlockSelected(item.backImage, isFirstBlock = true)
+                } else if(blockSelected != item) {
+                    isValidating = true
+                    showBlockSelected(item.backImage, isFirstBlock = false)
+                    Handler(Looper.getMainLooper()).postDelayed({validateBlocksSelected(item)}, 200)
+                }
+            }, 500)
+        }
     }
 
     private fun restoreStorage() { Prefs(this).wipe() }
