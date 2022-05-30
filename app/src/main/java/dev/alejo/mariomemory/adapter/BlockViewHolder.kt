@@ -26,6 +26,8 @@ class BlockViewHolder(view: View): RecyclerView.ViewHolder(view) {
             backBlockImage.visibility = View.VISIBLE
             backBlockImage.isEnabled = false
         } else {
+            if(!isBlockSide)
+                frontBlockImage.scaleX = -1f
             isBlockSide = true
             frontBlockImage.visibility = View.VISIBLE
             backBlockImage.visibility = View.GONE
