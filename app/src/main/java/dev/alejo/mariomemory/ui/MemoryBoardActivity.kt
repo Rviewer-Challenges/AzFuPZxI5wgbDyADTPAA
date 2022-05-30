@@ -191,7 +191,7 @@ class MemoryBoardActivity : AppCompatActivity(),  OnBlockItemListener{
                     showBlockSelected(item.backImage, isFirstBlock = false)
                     Handler(Looper.getMainLooper()).postDelayed({validateBlocksSelected(item)}, 200)
                 }
-            }, 500)
+            }, 200)
         }
     }
 
