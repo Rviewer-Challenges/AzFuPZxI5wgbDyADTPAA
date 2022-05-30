@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun hidePlayButton() {
         val animator = ObjectAnimator.ofFloat(binding.playButton, View.ALPHA, 0f)
-        animator.duration = 500
+        animator.duration = 100
         animator.start()
         animator.addListener(object: Animator.AnimatorListener {
             override fun onAnimationStart(p0: Animator?) {
