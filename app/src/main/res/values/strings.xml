@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">MarioMemory</string>
+    <string name="welcome">Welcome to</string>
+    <string name="play">Play</string>
+    <string name="easy_difficult">Easy (4x4)</string>
+    <string name="medium_difficult">Medium (4x6)</string>
+    <string name="hard_difficult">Hard (5x6)</string>
+    <string name="movements">Movements:</string>
+    <string name="remaining_pairs">Remaining pairs:</string>
+    <string name="winner_message">You\'re the winner\n¡YOU ROCK!</string>
+    <string name="looser_message">You lost the game but you can\n¡TRY IT AGAIN!</string>
+    <string name="retry">RETRY</string>
+    <string name="finish">FINISH</string>
+</resources>

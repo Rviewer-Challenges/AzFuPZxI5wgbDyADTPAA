@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <array name="characters">
+        <item>@drawable/bomb</item>
+        <item>@drawable/boo</item>
+        <item>@drawable/bowser</item>
+        <item>@drawable/captain_toad</item>
+        <item>@drawable/donkey_kong</item>
+        <item>@drawable/egg_red</item>
+        <item>@drawable/fuzzy</item>
+        <item>@drawable/luigi</item>
+        <item>@drawable/luma</item>
+        <item>@drawable/mario</item>
+        <item>@drawable/nabbit</item>
+        <item>@drawable/princess_peach</item>
+        <item>@drawable/star</item>
+        <item>@drawable/toad</item>
+        <item>@drawable/toad_red</item>
+        <item>@drawable/toadette</item>
+        <item>@drawable/waluigi</item>
+        <item>@drawable/wario</item>
+        <item>@drawable/yoshi</item>
+    </array>
+
+</resources>
